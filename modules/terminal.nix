@@ -21,6 +21,16 @@
 
     # Add Zoxide
     home-manager.users.ml = {
+      programs.kitty = {
+        enable = true;
+        font = {
+          name = "FiraCode Nerd Font";
+          size = 12;
+        };
+        settings = {
+          confirm_os_window_close = 0;
+        };
+      };
       programs.zoxide = {
         enable = true;
         enableZshIntegration = true;

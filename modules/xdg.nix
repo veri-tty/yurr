@@ -35,9 +35,9 @@
         enable = true;
         createDirectories = true;
         documents = "/home/ml/repos";
-        download = "home/ml/dl";
+        download = "/home/ml/dl";
         pictures = "/home/ml/media";
-
+	
         ## Unused directories
         desktop = null;
         music = null;

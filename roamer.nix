@@ -13,6 +13,7 @@ with inputs;
     ##
     ## It takes an array of modules.
     modules = [
+      nixos-hardware.nixosModules.framework-13-7040-amd
       home-manager.nixosModules.home-manager
       ./modules/default.nix # Contains options and imports all relevant other modules
     ];

@@ -6,7 +6,6 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.initrd.luks.devices."luks-457633e1-c09c-4449-9c1b-2fa13b4e72a8".device = "/dev/disk/by-uuid/457633e1-c09c-4449-9c1b-2fa13b4e72a8";
-  networking.useDHCP = true;
   networking.hostName = "roamer"; # Define your hostname.
   networking.networkmanager.enable = true;
    fileSystems."/" =
