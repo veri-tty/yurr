@@ -60,14 +60,16 @@ in
         input = {
           "*" = {
             xkb_layout = "de";
+            xkb_options = "caps:escape";
           };
           "type:touchpad" = {
-            dwt = "enabled";
+            dwt = "disabled";
             tap = "enabled";
             natural_scroll = "enabled";
           };
           "type:keyboard" = {
             xkb_layout = "de";
+            xkb_options = "caps:escape";
           };
         };
 

@@ -59,8 +59,7 @@
         };
 
         ## Setting config dir
-        ## Path is relative to $HOME, so we can't use `xdg.configHome' here.
-        dotDir = ".config/zsh";
+        dotDir = "${config.home-manager.users.ml.xdg.configHome}/zsh";
 
         ## History
         history = {

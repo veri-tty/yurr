@@ -35,7 +35,32 @@
     ## Global packages
     ## Packages should be managed with home-manager whereever
     ## possible. Only use a set of barebones applications here.
-    environment.systemPackages = with pkgs; [git unzip wget curl ripgrep];
+    environment.systemPackages = with pkgs; [git unzip wget nix-ld curl unrar ripgrep];
+    programs.nix-ld = {
+      enable = true;
+      libraries = with pkgs; [
+          # Core libraries
+          stdenv.cc.cc.lib
+          glibc
+          zlib
+
+          # Graphics
+          libGL
+          libglvnd
+          vulkan-loader
+
+          # Audio
+          alsa-lib
+          libpulseaudio
+
+          # X11/Display
+          xorg.libX11
+          xorg.libXcursor
+          xorg.libXrandr
+          xorg.libXi
+          xorg.libXinerama
+      ];
+    };
 
     ## Home manager settings
     home-manager.useGlobalPkgs = true;
