@@ -2,15 +2,18 @@
 {
   environment.systemPackages = [
     pkgs.claude-code
+    pkgs.codex
     pkgs.rustc
     pkgs.cargo
     pkgs.obsidian
     pkgs.clang
     pkgs.tinymist
     pkgs.typst
+    pkgs.zathura
+    pkgs.poppler-utils
+    pkgs.nodejs_24
   ];
 
-  programs.vscode.enable = true;
   home-manager.users.ml = {
     programs.ssh = {
       enable = true;
@@ -22,6 +25,10 @@
           identitiesOnly = true;
         };
       };
+    };
+    programs.vscode = {
+    enable = true;
+    mutableExtensionsDir = true;
     };
   };
 }
