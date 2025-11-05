@@ -45,6 +45,7 @@
       programs.zsh = {
         enable = true;
         shellAliases = {
+          pic = "grim -g '$(slurp -w 0)'";
           nrs = "sudo nixos-rebuild switch --flake /home/ml/repos/flake#";
           cat = "bat";
         };

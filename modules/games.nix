@@ -2,6 +2,7 @@
 {
   environment.systemPackages = [
     pkgs.steam
+    pkgs.wineWowPackages.waylandFull
   ];
 }
 

@@ -6,6 +6,7 @@
     ./apps.nix
     ./boot.nix
     ./locale.nix
+    ./pen.nix
     ./sway.nix
     ./games.nix
     ./system.nix

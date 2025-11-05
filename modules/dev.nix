@@ -2,6 +2,8 @@
 {
   environment.systemPackages = [
     pkgs.claude-code
+    pkgs.vim-full
+    pkgs.github-cli
     pkgs.codex
     pkgs.rustc
     pkgs.cargo

@@ -12,16 +12,19 @@ let
   '';
 in
 {
-  services.greetd = {
+    #services.greetd = {
+     #      enable = true;
+     #  settings = {
+     #    default_session = {
+     #      command = "${pkgs.tuigreet}/bin/tuigreet --time --cmd sway";
+     #      user = "greeter";
+     #    };
+     #  };
+     #};
+  services.displayManager.ly = {
     enable = true;
-    settings = {
-      default_session = {
-        command = "${pkgs.tuigreet}/bin/tuigreet --time --cmd sway";
-        user = "greeter";
-      };
-    };
+    settings = { animation = "doom"; };
   };
-
   users.users.ml.extraGroups = [ "video" ];
   programs.light.enable = true;
   environment.systemPackages = with pkgs; [
@@ -63,7 +66,7 @@ in
             xkb_options = "caps:escape";
           };
           "type:touchpad" = {
-            dwt = "disabled";
+            dwt = "enabled";
             tap = "enabled";
             natural_scroll = "enabled";
           };
@@ -92,7 +95,7 @@ in
           "${modifier}+q" = "kill";
           "${modifier}+Return" = "exec ${terminal}";
           "${modifier}+d" = "exec ${menu}";
-          "${modifier}+Delete" = "exec swaylock -i /home/ml/media/wall/AWtXCjt7xVddQLMhKuRhWc-1920-80.jpg";
+          "${modifier}+Delete" = "exec swaylock -i /home/ml/media/wall/heyapple.jpg";
 
           # Reload and exit
           "${modifier}+Shift+c" = "reload";

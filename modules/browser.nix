@@ -3,7 +3,6 @@
   home-manager.users.ml = {
     imports = [
       inputs.zen-browser.homeModules.beta
-      inputs.schizofox.homeManagerModules.default
     ];
 
     xdg.mimeApps = let
@@ -34,72 +33,42 @@
       associations.added = associations;
       defaultApplications = associations;
     };
-    programs.schizofox = {
+    programs.firefox = {
       enable = true;
+      package = pkgs.librewolf;
 
-      theme = {
-        colors = {
-          background-darker = "181825";
-          background = "1e1e2e";
-          foreground = "cdd6f4";
+      languagePacks = [ "en-US" "de-DE" ];
+      nativeMessagingHosts = [];
+
+      policies = {
+        DisableTelemetry      = true;
+        DisableFirefoxStudies = true;
+
+        ExtensionSettings = {
+          "foxyproxy@eric.h.jung" = {
+            install_url       = "https://addons.mozilla.org/firefox/downloads/latest/foxyproxy-standard/latest.xpi";
+            installation_mode = "force_installed";
+          };
+          "addon@karakeep.app" = {
+            install_url       = "https://addons.mozilla.org/firefox/downloads/latest/karakeep/latest.xpi";
+            installation_mode = "force_installed";
+          };
+          "CanvasBlocker@kkapsner.de" = {
+            install_url       = "https://addons.mozilla.org/firefox/downloads/latest/canvasblocker/latest.xpi";
+            installation_mode = "force_installed";
+          };
         };
 
-        font = "Lexend";
-
-        extraUserChrome = ''
-          body {
-            color: red !important;
-          }
-        '';
-      };
-
-      search = {
-        defaultSearchEngine = "Brave";
-        removeEngines = ["Google" "Bing" "Amazon.com" "eBay" "Twitter" "Wikipedia"];
-        searxUrl = "https://searx.be";
-        searxQuery = "https://searx.be/search?q={searchTerms}&categories=general";
-        addEngines = [
-          {
-            Name = "Etherscan";
-            Description = "Checking balances";
-            Alias = "!eth";
-            Method = "GET";
-            URLTemplate = "https://etherscan.io/search?f=0&q={searchTerms}";
-          }
-        ];
-      };
-
-      security = {
-        sanitizeOnShutdown.enable = true;
-        sandbox.enable = true;
-        userAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:106.0) Gecko/20100101 Firefox/106.0";
-      };
-
-      misc = {
-        drmFix = true;
-        disableWebgl = false;
-        #startPageURL = "file://${builtins.readFile ./startpage.html}";
-        contextMenu.enable = true;
-      };
-
-      extensions = {
-        simplefox.enable = true;
-        darkreader.enable = true;
-
-        extraExtensions = {
-          "webextension@metamask.io".install_url = "https://addons.mozilla.org/firefox/downloads/latest/ether-metamask/latest.xpi";
+        Preferences = {
+          "webgl.disabled"                      = { Value = false; Status = "locked"; };
+          "privacy.resistFingerprinting"        = { Value = true; Status = "locked"; };
+          "privacy.trackingprotection.enabled"  = { Value = true; Status = "locked"; };
+          "network.cookie.lifetimePolicy"       = { Value = 2; Status = "locked"; };
+          "privacy.clearOnShutdown.cookies"     = { Value = true; Status = "locked"; };
+          "privacy.clearOnShutdown.history"     = { Value = true; Status = "locked"; };
+          "browser.shell.checkDefaultBrowser"   = { Value = false; Status = "locked"; };
         };
       };
-
-      bookmarks = [
-        {
-          Title = "Example";
-          URL = "https://example.com";
-          Favicon = "https://example.com/favicon.ico";
-          Placement = "toolbar";
-          Folder = "FolderName";
-        }
-      ];
     };
     programs.zen-browser = {
       enable = true;
