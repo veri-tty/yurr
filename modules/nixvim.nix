@@ -30,7 +30,7 @@
         autoindent = true;
 
         # Line wrapping
-        wrap = false;
+        wrap = true;
 
         # Search settings
         ignorecase = true;

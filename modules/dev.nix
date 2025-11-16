@@ -1,7 +1,11 @@
 { pkgs, config, ... }:
 {
+  virtualisation.docker.enable = true;
+  programs.virt-manager.enable = true;
+  virtualisation.libvirtd.enable = true;
   environment.systemPackages = [
     pkgs.claude-code
+    pkgs.gemini-cli
     pkgs.vim-full
     pkgs.github-cli
     pkgs.codex

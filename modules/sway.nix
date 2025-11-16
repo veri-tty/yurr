@@ -66,7 +66,7 @@ in
             xkb_options = "caps:escape";
           };
           "type:touchpad" = {
-            dwt = "enabled";
+            dwt = "disabled";
             tap = "enabled";
             natural_scroll = "enabled";
           };

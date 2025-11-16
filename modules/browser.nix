@@ -1,9 +1,15 @@
 { inputs, config, pkgs, ... }:
 {
+
+  environment.systemPackages = [
+  pkgs.google-chrome
+  pkgs.chromium
+  ];
   home-manager.users.ml = {
     imports = [
       inputs.zen-browser.homeModules.beta
     ];
+    programs.qutebrowser.enable = true;
 
     xdg.mimeApps = let
       associations = builtins.listToAttrs (map (name: {
