@@ -2,8 +2,10 @@
 {
   environment.systemPackages = [
     pkgs.gobuster
+    pkgs.exiftool
     pkgs.github-copilot-cli
     pkgs.burpsuite
+    pkgs.binaryninja-free
     pkgs.file
     pkgs.solc
     pkgs.awscli2
@@ -21,5 +23,5 @@
     pkgs.python313Packages.impacket
     pkgs.openvpn
   ];
-
+  programs.ghidra.enable = true;
 }

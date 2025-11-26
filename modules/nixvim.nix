@@ -129,10 +129,13 @@
           servers = {
             # Nix
             nixd.enable = true;
+            tinymist = {
+              enable = true;
+              autostart = true;
 
+            };
             clangd.enable = true;
-            rust-analyzer.enable = true;
-            ltex.enable = true;
+            rust_analyzer.enable = true;
 
             # Lua
             lua_ls.enable = true;

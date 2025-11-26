@@ -31,7 +31,6 @@ in
     grim # screenshot functionality
     slurp # screenshot functionality
     wl-clipboard # wl-copy and wl-paste for copy/paste from stdin / stdout
-    mako # notification system developed by swaywm maintainer
     wmenu
     foot # terminal
     swaylock # screen locker
@@ -45,7 +44,30 @@ in
     enable = true;
     wrapperFeatures.gtk = true;
   };
-  home-manager.users.ml = {
+  home-manager.users.ml = { config, ... }: {
+  home.packages = [
+    pkgs.polkit_gnome
+  ];
+
+  # Disable notification daemons
+  services.mako.enable = false;
+  services.dunst.enable = false;
+
+  systemd.user.services.polkit-gnome-authentication-agent-1 = {
+    Unit = {
+      Description = "Polkit GNOME Authentication Agent";
+      After = [ "graphical-session.target" ];
+      Wants = [ "graphical-session.target" ];
+    };
+    Service = {
+      Type = "simple";
+      ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
+      Restart = "on-failure";
+    };
+    Install = {
+      WantedBy = [ "graphical-session.target" ];
+    };
+  };
     wayland.windowManager.sway = {
       enable = true;
       config = rec {
@@ -66,7 +88,7 @@ in
             xkb_options = "caps:escape";
           };
           "type:touchpad" = {
-            dwt = "disabled";
+            dwt = "true";
             tap = "enabled";
             natural_scroll = "enabled";
           };
@@ -90,12 +112,14 @@ in
         floating.modifier = "${modifier}";
 
         # Keybindings
-        keybindings = lib.mkOptionDefault {
+        keybindings = let
+          lockscreen = "${config.home.homeDirectory}/media/wall/heyapple.jpg";
+        in lib.mkOptionDefault {
           # Basics
           "${modifier}+q" = "kill";
           "${modifier}+Return" = "exec ${terminal}";
           "${modifier}+d" = "exec ${menu}";
-          "${modifier}+Delete" = "exec swaylock -i /home/ml/media/wall/heyapple.jpg";
+          "${modifier}+Delete" = "exec swaylock -i ${lockscreen}";
 
           # Reload and exit
           "${modifier}+Shift+c" = "reload";
@@ -221,10 +245,10 @@ in
           };
         }];
       };
-      checkConfig = true;
-      extraConfig = ''
-        # Disable notifications
-        exec --no-startup-id pkill mako
+      checkConfig = false;
+      extraConfig =
+      ''
+        output * bg ${config.home.homeDirectory}/media/wall/hassowo.png stretch
       '';
     };
   };

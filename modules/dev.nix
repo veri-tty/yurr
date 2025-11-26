@@ -1,10 +1,15 @@
 { pkgs, config, ... }:
 {
-  virtualisation.docker.enable = true;
+  virtualisation.docker.enable = false;
+  services.spice-webdavd.enable = true;
   programs.virt-manager.enable = true;
   virtualisation.libvirtd.enable = true;
   environment.systemPackages = [
     pkgs.claude-code
+    pkgs.ripes
+    pkgs.hugo
+    pkgs.bambu-studio
+    pkgs.gnome-boxes
     pkgs.gemini-cli
     pkgs.vim-full
     pkgs.github-cli

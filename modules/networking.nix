@@ -9,12 +9,13 @@
   services.tailscale.enable = true;
   environment.systemPackages = [
     pkgs.eddie
+    pkgs.yggstack
     pkgs.wireguard-tools
     pkgs.i2p
     pkgs.bluez
     pkgs.networkmanagerapplet
   ];
-  services.i2p.enable = true;
+  services.i2p.enable = false;
   hardware.bluetooth = {
   enable = true;
   };

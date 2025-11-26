@@ -25,21 +25,22 @@
     nixos-hardware,
     ...
   } @ inputs: let
-    globals = {
-      user = "ml";
-      stateVers = "24.11";
-    };
-
     supportedSystems = ["x86_64-linux"];
     forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
     specialArgs = {inherit inputs;}; # pass the inputs into the configuration module
   in rec {
     ## System configurations
     nixosConfigurations = {
-      roamer = import ./roamer.nix {inherit inputs globals nixpkgs nixos-hardware;};
+      roamer = import ./machines/roamer/roamer.nix {inherit inputs nixpkgs nixos-hardware;};
+    };
+    nixosConfigurations = {
+      yalt = import ./machines/yalt/yalt.nix {inherit inputs nixpkgs nixos-hardware;};
     };
 
     ## Home configurations
+    homeConfigurations = {
+      yalt = nixosConfigurations.yalt.config.home-manager.users.ml.home;
+    };
     homeConfigurations = {
       roamer = nixosConfigurations.roamer.config.home-manager.users.ml.home;
     };
