@@ -6,7 +6,7 @@
 with inputs;
   nixpkgs.lib.nixosSystem {
     ## Setting system architecture.
-    system = "x86_64-linux";
+    system =  "x86_64-linux";
     specialArgs = {inherit inputs nur;};
     boot.kernelParams = [ "ip=dhcp" ];
     boot.initrd = {
@@ -44,7 +44,7 @@ with inputs;
     ## Modules
     networking.hostName = "yalt"; # Define your hostname.
     boot.loader.systemd-boot.enable = true;
-    system.nixos.label = "MangoDiddybludOS3000";
+    #system.nixos.label = "MangoDiddybludOS3000";
     modules = [
       nixos-hardware.nixosModules.framework-13-7040-amd
       home-manager.nixosModules.home-manager
