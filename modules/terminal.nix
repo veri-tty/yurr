@@ -47,7 +47,8 @@
         shellAliases = {
           pic = "grim -g '$(slurp -w 0)'";
           nrs = "sudo nixos-rebuild switch --flake /home/ml/repos/flake#";
-          cat = "bat";
+          ynrs = "nixos-rebuild switch --flake .#yalt --target-host root@65.109.123.217 --use-remote-sudo";
+          cat = "bat -p";
         };
 
         ## Enable some QOL features
@@ -70,7 +71,7 @@
         ## Save completion dump into $XDG_CACHE_HOME
         completionInit = ''
           autoload -U compinit
-          compinit -d ".zcompdump"
+          compinit -d "$HOME/.cache/zsh/.zcompdump"
         '';
       };
     };

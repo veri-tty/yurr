@@ -4,7 +4,6 @@
     ./networking.nix
     ./nix.nix
     ./apps.nix
-    ./boot.nix
     ./locale.nix
     ./pen.nix
     ./sway.nix

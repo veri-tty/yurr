@@ -35,6 +35,12 @@
           identityFile = "~/.ssh/hpi";
           identitiesOnly = true;
         };
+        "65.109.123.217" = {
+          hostname = "65.109.123.217";
+          user = "ml";
+          identityFile = "~/.ssh/yaltluks";
+          identitiesOnly = true;
+        };
       };
     };
     programs.vscode = {

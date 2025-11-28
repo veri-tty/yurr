@@ -39,7 +39,7 @@ in
                 passwordFile = "/tmp/pass";
                 additionalKeyFiles = [ "/nixos-enc.key" ];
                 extraFormatArgs = [
-                  "--type luks1"
+                  "--type luks2"
                   "--iter-time 1000"
                 ];
                 settings = {
@@ -74,3 +74,4 @@ in
     };
   };
 }
+

@@ -18,6 +18,8 @@
       url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    disko.url = "github:nix-community/disko";
+    disko.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = {
@@ -32,8 +34,6 @@
     ## System configurations
     nixosConfigurations = {
       roamer = import ./machines/roamer/roamer.nix {inherit inputs nixpkgs nixos-hardware;};
-    };
-    nixosConfigurations = {
       yalt = import ./machines/yalt/yalt.nix {inherit inputs nixpkgs nixos-hardware;};
     };
 
