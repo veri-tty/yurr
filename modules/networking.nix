@@ -15,7 +15,7 @@
     pkgs.bluez
     pkgs.networkmanagerapplet
   ];
-  services.i2p.enable = false;
+  #services.i2p.enable = false;
   hardware.bluetooth = {
   enable = true;
   };
