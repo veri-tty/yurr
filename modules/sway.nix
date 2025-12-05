@@ -246,10 +246,10 @@ in
         }];
       };
       checkConfig = false;
-      extraConfig =
-      ''
-        output * bg ${config.home.homeDirectory}/media/wall/hassowo.png stretch
-      '';
+      #extraConfig =
+      #''
+      #  output * bg ${config.home.homeDirectory}/media/wall/hassowo.png stretch
+      #'';
     };
   };
 }

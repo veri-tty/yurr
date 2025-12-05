@@ -6,6 +6,7 @@
   virtualisation.libvirtd.enable = true;
   environment.systemPackages = [
     pkgs.claude-code
+    pkgs.opencode
     pkgs.ripes
     pkgs.hugo
     pkgs.bambu-studio

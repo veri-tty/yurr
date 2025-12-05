@@ -3,6 +3,7 @@
   networking.hosts = {
   #htb
   "10.129.45.239" = ["thetoppers.htb"];
+  "10.129.2.156" = ["gavel.htb"];
   "10.129.95.234" = ["unika.htb"];
   };
   networking.networkmanager.enable = true;

@@ -2,6 +2,7 @@
 {
   environment.systemPackages = [
     pkgs.gobuster
+    pkgs.netcat-gnu
     pkgs.imagemagick
     pkgs.exiftool
     pkgs.github-copilot-cli
