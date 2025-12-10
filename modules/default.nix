@@ -1,18 +1,13 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 {
   imports = [
-    ./networking.nix
-    ./nix.nix
-    ./apps.nix
-    ./locale.nix
-    ./pen.nix
-    ./sway.nix
-    ./games.nix
-    ./system.nix
+    ./options.nix
+    ./core.nix
     ./terminal.nix
-    ./xdg.nix
+    ./desktop.nix
     ./dev.nix
-    ./browser.nix
+    ./pentest.nix
+    ./server.nix
     ./nixvim.nix
   ];
 }

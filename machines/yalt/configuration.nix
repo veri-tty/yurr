@@ -3,9 +3,15 @@
   imports = [
     ../../modules/default.nix
     ./disko.nix
-    ../../modules/server.nix
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
+
+  # Enable modules for yalt (server machine)
+  modules.server.enable = true;
+  modules.editor.neovim = true;
+  # modules.desktop.enable = false;  # No desktop on server
+  # modules.dev.enable = false;
+  # modules.pentest.enable = false;
 
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.grub = {

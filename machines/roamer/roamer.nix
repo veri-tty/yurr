@@ -6,7 +6,7 @@ with inputs;
   nixpkgs.lib.nixosSystem {
     ## Setting system architecture.
     system = "x86_64-linux";
-    specialArgs = {inherit inputs nur;};
+    specialArgs = {inherit inputs;};
 
     ## Modules
     ##
@@ -16,5 +16,14 @@ with inputs;
       home-manager.nixosModules.home-manager
       ../../modules/default.nix # Contains options and imports all relevant other modules
       ./boot.nix
+      {
+        # Enable modules for roamer (desktop machine)
+        modules.desktop.enable = true;
+        modules.desktop.gaming = true;
+        modules.dev.enable = true;
+        modules.pentest.enable = true;
+        modules.editor.neovim = true;
+        # modules.server.enable = false; # Not a server
+      }
     ];
   }

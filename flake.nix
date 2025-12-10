@@ -40,8 +40,6 @@
     ## Home configurations
     homeConfigurations = {
       yalt = nixosConfigurations.yalt.config.home-manager.users.ml.home;
-    };
-    homeConfigurations = {
       roamer = nixosConfigurations.roamer.config.home-manager.users.ml.home;
     };
   };

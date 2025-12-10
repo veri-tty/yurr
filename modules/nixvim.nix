@@ -1,9 +1,13 @@
-{ pkgs, config, inputs, ... }:
+{ pkgs, config, lib, inputs, ... }:
+let
+  cfg = config.modules.editor;
+in
 {
-  home-manager.users.ml = {
-    imports = [ inputs.nixvim.homeModules.default ];
-    programs.nixvim = {
-      enable = true;
+  config = lib.mkIf cfg.neovim {
+    home-manager.users.ml = {
+      imports = [ inputs.nixvim.homeModules.default ];
+      programs.nixvim = {
+        enable = true;
 
       # Set leader key to space
       globals.mapleader = " ";
@@ -441,5 +445,6 @@
         vim.opt.completeopt = { 'menu', 'menuone', 'noselect' }
       '';
     };
+  };
   };
 }
