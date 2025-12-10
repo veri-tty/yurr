@@ -1,7 +1,7 @@
 { pkgs, config, ... }:
 {
-  virtualisation.docker.enable = false;
-  services.spice-webdavd.enable = true;
+  #  virtualisation.docker.enable = false;
+  #services.spice-webdavd.enable = true;
   programs.virt-manager.enable = true;
   virtualisation.libvirtd.enable = true;
   environment.systemPackages = [
