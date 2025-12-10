@@ -3,6 +3,7 @@
   imports = [
     ../../modules/default.nix
     ./disko.nix
+    ../../modules/server.nix
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
 

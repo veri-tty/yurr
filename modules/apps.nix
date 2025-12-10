@@ -2,6 +2,8 @@
 {
   environment.systemPackages = [
     pkgs.signal-desktop-bin
+    pkgs.mpv
+    pkgs.waveterm
     pkgs.vlc
     pkgs.qbittorrent
     pkgs.waydroid

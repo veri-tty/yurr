@@ -10,6 +10,8 @@
     pkgs.ripes
     pkgs.hugo
     pkgs.bambu-studio
+    pkgs.gtk3
+    pkgs.gtk4
     pkgs.gnome-boxes
     pkgs.gemini-cli
     pkgs.vim-full
