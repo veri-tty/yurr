@@ -132,7 +132,12 @@
             tinymist = {
               enable = true;
               autostart = true;
+            };
 
+            # LaTeX LSP
+            texlab = {
+              enable = true;
+              autostart = true;
             };
             clangd.enable = true;
             rust_analyzer.enable = true;
@@ -218,6 +223,36 @@
         # Comment toggling
         comment.enable = true;
 
+        # LaTeX support with live preview
+        vimtex = {
+          enable = true;
+          settings = {
+            view_method = "zathura";
+            compiler_method = "latexmk";
+            compiler_latexmk = {
+              options = [
+                "-pdf"
+                "-shell-escape"
+                "-verbose"
+                "-file-line-error"
+                "-synctex=1"
+                "-interaction=nonstopmode"
+              ];
+            };
+          };
+        };
+
+        # Typst live preview support
+        typst-preview = {
+          enable = true;
+          settings = {
+            dependencies_bin = {
+              tinymist = "tinymist";
+              websocat = "websocat";
+            };
+          };
+        };
+
         # Indent guides
         indent-blankline = {
           enable = true;
@@ -242,6 +277,14 @@
               {
                 __unkeyed-1 = "<leader>r";
                 group = "Rename";
+              }
+              {
+                __unkeyed-1 = "<leader>l";
+                group = "LaTeX/Typst";
+              }
+              {
+                __unkeyed-1 = "<leader>t";
+                group = "Typst";
               }
             ];
           };
@@ -334,6 +377,58 @@
           key = "<leader>q";
           action = "<cmd>q<CR>";
           options.desc = "[Q]uit";
+        }
+
+        # LaTeX keymaps (vimtex)
+        {
+          mode = "n";
+          key = "<leader>ll";
+          action = "<cmd>VimtexCompile<CR>";
+          options.desc = "[L]aTeX Compile";
+        }
+        {
+          mode = "n";
+          key = "<leader>lv";
+          action = "<cmd>VimtexView<CR>";
+          options.desc = "[L]aTeX [V]iew PDF";
+        }
+        {
+          mode = "n";
+          key = "<leader>ls";
+          action = "<cmd>VimtexStop<CR>";
+          options.desc = "[L]aTeX [S]top";
+        }
+        {
+          mode = "n";
+          key = "<leader>lc";
+          action = "<cmd>VimtexClean<CR>";
+          options.desc = "[L]aTeX [C]lean";
+        }
+        {
+          mode = "n";
+          key = "<leader>lt";
+          action = "<cmd>VimtexTocToggle<CR>";
+          options.desc = "[L]aTeX [T]OC Toggle";
+        }
+
+        # Typst keymaps (typst-preview)
+        {
+          mode = "n";
+          key = "<leader>tp";
+          action = "<cmd>TypstPreview<CR>";
+          options.desc = "[T]ypst [P]review";
+        }
+        {
+          mode = "n";
+          key = "<leader>ts";
+          action = "<cmd>TypstPreviewStop<CR>";
+          options.desc = "[T]ypst Preview [S]top";
+        }
+        {
+          mode = "n";
+          key = "<leader>tt";
+          action = "<cmd>TypstPreviewToggle<CR>";
+          options.desc = "[T]ypst Preview [T]oggle";
         }
       ];
 
