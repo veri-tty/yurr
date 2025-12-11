@@ -7,9 +7,28 @@ in
     services.immich.enable = true;
     virtualisation.docker.enable = true;
 
+    # Open firewall for HTTP/HTTPS
+    networking.firewall.allowedTCPPorts = [ 80 443 81 ];
+
     virtualisation.oci-containers = {
       backend = "docker";
       containers = {
+        # Nginx Proxy Manager
+        nginx-proxy-manager = {
+          image = "jc21/nginx-proxy-manager:latest";
+          ports = [
+            "80:80"
+            "443:443"
+            "81:81"  # Admin UI
+          ];
+          volumes = [
+            "/var/lib/nginx-proxy-manager/data:/data"
+            "/var/lib/nginx-proxy-manager/letsencrypt:/etc/letsencrypt"
+          ];
+          extraOptions = [ "--network=proxy-network" ];
+        };
+
+        # Affine stack
         affine-postgres = {
           image = "pgvector/pgvector:pg16";
           volumes = [ "/var/lib/affine/postgres:/var/lib/postgresql/data" ];
@@ -53,9 +72,30 @@ in
             AFFINE_INDEXER_ENABLED = "false";
           };
           dependsOn = [ "affine-postgres" "affine-redis" ];
-          extraOptions = [ "--network=affine-network" ];
+          extraOptions = [
+            "--network=affine-network"
+            "--network=proxy-network"
+          ];
         };
       };
+    };
+
+    # Create docker networks
+    systemd.services.proxy-network = {
+      description = "Create Docker network for Nginx Proxy Manager";
+      after = [ "docker.service" ];
+      wantedBy = [ "multi-user.target" ];
+      serviceConfig = {
+        Type = "oneshot";
+        RemainAfterExit = true;
+      };
+      script = ''
+        ${pkgs.docker}/bin/docker network inspect proxy-network >/dev/null 2>&1 || \
+          ${pkgs.docker}/bin/docker network create proxy-network
+      '';
+      preStop = ''
+        ${pkgs.docker}/bin/docker network rm proxy-network || true
+      '';
     };
 
     systemd.services.affine-network = {
@@ -99,7 +139,9 @@ in
       '';
     };
 
-    systemd.services.docker-affine.after = [ "affine-network.service" "affine-migration.service" ];
+    # Service dependencies
+    systemd.services.docker-nginx-proxy-manager.after = [ "proxy-network.service" ];
+    systemd.services.docker-affine.after = [ "affine-network.service" "proxy-network.service" "affine-migration.service" ];
     systemd.services.docker-affine.requires = [ "affine-migration.service" ];
     systemd.services.docker-affine-postgres.after = [ "affine-network.service" ];
     systemd.services.docker-affine-redis.after = [ "affine-network.service" ];
@@ -109,6 +151,9 @@ in
       "d /var/lib/affine/storage 0750 root root -"
       "d /var/lib/affine/config 0750 root root -"
       "d /var/lib/affine/postgres 0750 root root -"
+      "d /var/lib/nginx-proxy-manager 0750 root root -"
+      "d /var/lib/nginx-proxy-manager/data 0750 root root -"
+      "d /var/lib/nginx-proxy-manager/letsencrypt 0750 root root -"
     ];
   };
 }

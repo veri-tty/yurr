@@ -32,6 +32,7 @@ in
       # Apps
       signal-desktop-bin mpv waveterm vlc qbittorrent waydroid feather
       tor-browser electrum wasistlos spotdl spotify nicotine-plus
+      betaflight-configurator
       # Browsers
       google-chrome chromium
       # Networking

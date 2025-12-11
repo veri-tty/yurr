@@ -144,10 +144,13 @@ in
               autostart = true;
             };
             clangd.enable = true;
-            rust_analyzer.enable = true;
+            rust_analyzer = {
+              enable = true;
+              installCargo = false;
+              installRustc = false;
+            };
 
             # Lua
-            lua_ls.enable = true;
 
             # Python
             pyright.enable = true;
@@ -413,6 +416,20 @@ in
           key = "<leader>lt";
           action = "<cmd>VimtexTocToggle<CR>";
           options.desc = "[L]aTeX [T]OC Toggle";
+        }
+
+        # Compile and run C/C++
+        {
+          mode = "n";
+          key = "<leader>cr";
+          action = "<cmd>split | term clang % -o %:r && ./%:r<CR>";
+          options.desc = "[C] [R]un (compile & execute)";
+        }
+        {
+          mode = "n";
+          key = "<leader>cc";
+          action = "<cmd>split | term clang % -o %:r<CR>";
+          options.desc = "[C] [C]ompile only";
         }
 
         # Typst keymaps (typst-preview)

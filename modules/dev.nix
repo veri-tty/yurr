@@ -17,7 +17,11 @@ in
     home-manager.users.ml = {
       programs.ssh = {
         enable = true;
+        enableDefaultConfig = false;
         matchBlocks = {
+          "*" = {
+            addKeysToAgent = "yes";
+          };
           "gitlab.hpi.de" = {
             hostname = "gitlab.hpi.de";
             user = "git";
