@@ -16,7 +16,7 @@ with lib;
     };
 
     server = {
-      enable = mkEnableOption "server services (immich, affine)";
+      enable = mkEnableOption "server services (docker)";
     };
 
     editor = {
