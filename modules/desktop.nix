@@ -31,12 +31,16 @@ in
       grim slurp wl-clipboard wmenu foot swaylock swaybg pamixer acpi brightnessctl
       # Apps
       signal-desktop-bin mpv waveterm vlc qbittorrent waydroid feather
+      bitwarden-desktop
       tor-browser electrum wasistlos spotdl spotify nicotine-plus
       betaflight-configurator
       # Browsers
       google-chrome chromium
       # Networking
       eddie yggstack wireguard-tools i2p bluez networkmanagerapplet
+      # Notes
+      affine
+
     ];
 
     networking.hosts = {
@@ -167,14 +171,14 @@ in
           settings = {
             "zen.welcome-screen.seen" = true;
             "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
-            "font.name.monospace.x-western" = "FiraCode Nerd Font";
-            "font.name.sans-serif.x-western" = "FiraCode Nerd Font";
-            "font.name.serif.x-western" = "FiraCode Nerd Font";
+            "font.name.monospace.x-western" = "IBM Plex Mono";
+            "font.name.sans-serif.x-western" = "IBM Plex Sans";
+            "font.name.serif.x-western" = "IBM Plex Serif";
           };
           userChrome = ''
             #back-button, #forward-button, #reload-button, #stop-button,
             #home-button, #library-button, #fxa-toolbar-menu-button { display: none !important; }
-            * { font-family: "FiraCode Nerd Font" !important; }
+            * { font-family: "IBM Plex Sans" !important; }
           '';
         };
       };
@@ -194,7 +198,7 @@ in
           };
 
           window = { border = 2; titlebar = false; };
-          fonts = { names = [ "FiraCode" ]; size = 12.0; };
+          fonts = { names = [ "IBM Plex Mono" ]; size = 12.0; };
           floating.modifier = "${modifier}";
 
           keybindings = let lockscreen = "${config.home.homeDirectory}/media/wall/heyapple.jpg"; in lib.mkOptionDefault {
@@ -253,7 +257,7 @@ in
           bars = [{
             position = "top";
             statusCommand = "${barScript}";
-            fonts = { names = [ "FiraCode Nerd Font" ]; size = 11.0; };
+            fonts = { names = [ "IBM Plex Mono" ]; size = 11.0; };
             colors = {
               statusline = "#ffffff";
               background = "#323232";

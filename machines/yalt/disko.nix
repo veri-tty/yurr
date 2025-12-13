@@ -71,6 +71,37 @@ in
           };
         };
       };
+      pics = {
+        type = "disk";
+        device = "/dev/nvme1n1";
+        content = {
+          type = "gpt";
+          partitions = {
+            luks = {
+              size = "100%";
+              content = {
+                type = "luks";
+                name = "pics";
+                passwordFile = "/tmp/pass";
+                additionalKeyFiles = [ "/nixos-enc.key" ];
+                extraFormatArgs = [
+                  "--type luks2"
+                  "--iter-time 1000"
+                ];
+                settings = {
+                  allowDiscards = true;
+                };
+                content = {
+                  type = "filesystem";
+                  format = "ext4";
+                  mountpoint = "/home/ml/media/pics";
+                  mountOptions = [ "noatime" ];
+                };
+              };
+            };
+          };
+        };
+      };
     };
   };
 }

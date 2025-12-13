@@ -71,7 +71,7 @@
   security.polkit.enable = true;
 
   fonts.packages = with pkgs; [
-    nerd-fonts.fira-code
+    ibm-plex
   ];
 
   users.users.ml = {
