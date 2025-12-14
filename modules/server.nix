@@ -10,7 +10,7 @@ in
       pkgs.docker-compose
     ];
    # For mount.cifs, required unless domain name resolution is not needed.
-    fileSystems."/mnt/box" = lib.mkIf config.samba.enable {
+    fileSystems."/mnt/box" = {
       device = "//u455112.your-storagebox.de/backup";
       fsType = "cifs";
       options = let
