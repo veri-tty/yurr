@@ -24,11 +24,6 @@
   # Initrd with remote LUKS unlock
   boot.initrd = {
     availableKernelModules = [ "e1000e" "vmd" "xhci_pci" "ahci" "nvme" ];
-    luks.devices."pics" = {
-      device = "/dev/disk/by-uuid/ed550045-6a55-4230-8faa-27d289996aa5";
-      keyFile = "/nixos-enc.key";
-      allowDiscards = true;
-    };
     network = {
       enable = true;
       ssh = {
@@ -44,12 +39,6 @@
     };
   };
 
-  # Pics drive mount
-  fileSystems."/home/ml/media/pics" = {
-    device = "/dev/mapper/pics";
-    fsType = "ext4";
-    options = [ "noatime" ];
-  };
 
   # Networking
   networking.hostName = "yalt";
