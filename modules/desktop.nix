@@ -30,7 +30,7 @@ in
       # Sway utilities
       grim slurp wl-clipboard wmenu foot swaylock swaybg pamixer acpi brightnessctl
       # Apps
-      signal-desktop-bin mpv waveterm vlc qbittorrent waydroid feather
+      signal-desktop mpv waveterm vlc qbittorrent waydroid feather
       bitwarden-desktop
       tor-browser electrum wasistlos spotdl spotify nicotine-plus
       betaflight-configurator
