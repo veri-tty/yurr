@@ -16,7 +16,6 @@
       options = "--delete-older-than 7d";
     };
   };
-
   time.timeZone = "Europe/Berlin";
   i18n.defaultLocale = "en_US.UTF-8";
   i18n.extraLocaleSettings = {
@@ -47,8 +46,6 @@
     unrar
     ripgrep
     jq
-    netbird-ui
-    netbird
   ];
 
   programs.nix-ld = {
