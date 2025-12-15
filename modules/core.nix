@@ -48,6 +48,7 @@
     ripgrep
     jq
     netbird-ui
+    netbird
   ];
 
   programs.nix-ld = {
