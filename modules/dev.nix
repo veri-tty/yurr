@@ -28,6 +28,12 @@ in
             identityFile = "~/.ssh/hpi";
             identitiesOnly = true;
           };
+          "yalt"= {
+            hostname = "yalt";
+            user = "ml";
+            identityFile = "~/.ssh/yaltluks";
+            identitiesOnly = true;
+          };
           "65.109.123.217" = {
             hostname = "65.109.123.217";
             user = "ml";

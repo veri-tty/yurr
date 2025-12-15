@@ -37,7 +37,7 @@ in
       # Browsers
       google-chrome chromium
       # Networking
-      eddie yggstack wireguard-tools i2p bluez networkmanagerapplet
+      eddie yggstack wireguard-tools bluez networkmanagerapplet
       # Notes
       affine
 
