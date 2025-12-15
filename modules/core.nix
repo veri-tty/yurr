@@ -47,6 +47,7 @@
     unrar
     ripgrep
     jq
+    netbird-ui
   ];
 
   programs.nix-ld = {
