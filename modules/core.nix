@@ -46,6 +46,7 @@
     curl
     unrar
     ripgrep
+    jq
   ];
 
   programs.nix-ld = {
