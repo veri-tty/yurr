@@ -9,7 +9,8 @@ in
       daemon.settings = {
         "insecure-registries" = [
         "myregistry.example.local:5000"
-      ];
+        ];
+      };
     };
     environment.systemPackages = [
       pkgs.cifs-utils
