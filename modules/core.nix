@@ -39,6 +39,7 @@
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
   environment.systemPackages = with pkgs; [
+    claude-code
     git
     unzip
     wget

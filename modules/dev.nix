@@ -8,7 +8,7 @@ in
     virtualisation.libvirtd.enable = true;
 
     environment.systemPackages = with pkgs; [
-      claude-code opencode ripes hugo bambu-studio gtk3 gtk4
+      opencode ripes hugo bambu-studio gtk3 gtk4
       gnome-boxes gemini-cli vim-full github-cli codex
       rustc cargo obsidian clang tinymist typst zathura
       poppler-utils nodejs_24
