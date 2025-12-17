@@ -4,7 +4,13 @@ let
 in
 {
   config = lib.mkIf cfg.enable {
-    virtualisation.docker.enable = true;
+    virtualisation.docker = {
+      enable = true;
+      daemon.settings = {
+        "insecure-registries" = [
+        "myregistry.example.local:5000"
+      ];
+    };
     environment.systemPackages = [
       pkgs.cifs-utils
       pkgs.docker-compose
