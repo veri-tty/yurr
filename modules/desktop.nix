@@ -26,7 +26,10 @@ in
       wrapperFeatures.gtk = true;
     };
 
+    programs.dconf.enable = true;
+
     environment.systemPackages = with pkgs; [
+      android-tools
       # Sway utilities
       grim slurp wl-clipboard wmenu foot swaylock swaybg pamixer acpi brightnessctl
       # Apps
@@ -53,6 +56,23 @@ in
       imports = [ inputs.zen-browser.homeModules.beta ];
 
       home.packages = [ pkgs.polkit_gnome ];
+
+      # GTK dark theme configuration
+      gtk = {
+        enable = true;
+        theme = {
+          name = "Adwaita-dark";
+          package = pkgs.gnome-themes-extra;
+        };
+        gtk3.extraConfig.gtk-application-prefer-dark-theme = true;
+        gtk4.extraConfig.gtk-application-prefer-dark-theme = true;
+      };
+
+      dconf.settings = {
+        "org/gnome/desktop/interface" = {
+          color-scheme = "prefer-dark";
+        };
+      };
       services.mako.enable = false;
       services.dunst.enable = false;
 

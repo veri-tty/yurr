@@ -6,15 +6,15 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   # System label
-  system.nixos.label = "MangoDiddybludOS3000";
+  system.nixos.label = "fuck-off-glowie";
 
   # LUKS devices
   boot.initrd.luks.devices."luks-457633e1-c09c-4449-9c1b-2fa13b4e72a8".device = "/dev/disk/by-uuid/457633e1-c09c-4449-9c1b-2fa13b4e72a8";
-  boot.initrd.luks.devices."luks-c4d1b236-a7e5-4004-be67-7471450f0948".device = "/dev/disk/by-uuid/c4d1b236-a7e5-4004-be67-7471450f0948";
+  boot.initrd.luks.devices."luks-68a3659f-bf87-42a3-9bae-bed920d6bbea".device = "/dev/disk/by-uuid/68a3659f-bf87-42a3-9bae-bed920d6bbea";
 
   # Filesystem configuration
   fileSystems."/" = {
-    device = "/dev/disk/by-uuid/2bdf01cc-d6fe-45b3-ac50-175ab007d9b1";
+    device = "/dev/disk/by-uuid/2c3cfb65-1c46-4836-985a-44501c15fa00";
     fsType = "ext4";
   };
 

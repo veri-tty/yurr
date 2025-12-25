@@ -3,6 +3,14 @@
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
+  virtualisation.docker = {
+    enable = true;
+    daemon.settings = {
+      "insecure-registries" = [
+      "myregistry.example.local:5000"
+      ];
+    };
+  };
 
   nix = {
     extraOptions = ''
