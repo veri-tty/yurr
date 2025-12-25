@@ -256,7 +256,6 @@ in
         package = pkgs.qemu_kvm;
         runAsRoot = true;
         swtpm.enable = true;
-        ovmf.enable = true;
       };
     };
 
@@ -299,6 +298,7 @@ in
 
       config = { config, pkgs, ... }: {
         system.stateVersion = "24.11";
+        nixpkgs.config.allowUnfree = true;
 
         # Minimal environment - NO pentest tools
         environment.systemPackages = with pkgs; [
