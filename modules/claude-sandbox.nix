@@ -6,7 +6,7 @@ let
   whonixVersion = "18.0.8.7";
   whonixBundle = pkgs.fetchurl {
     url = "https://download.whonix.org/libvirt/${whonixVersion}/Whonix-CLI-${whonixVersion}.Intel_AMD64.qcow2.libvirt.xz";
-    hash = "sha512-qqtJC+Z3NeXM6IGuovdyd+jqooIf6QCZSK44YQOtZ+o/XNKYLiP8IiK8+cESnkNgXHwkWzPnMsRLx0WQEmlj8w==";
+    hash = "sha512-yqtJC+Z3NeXM6IGq4vdyd+jqqCH+kCWUqO6BhA62eqP1zSmC4j/CIivPnEEp5DYFx8JFsz5zLES8dFaQEmY38w==";
   };
 
   # Extract qcow2 files from the libvirt bundle
