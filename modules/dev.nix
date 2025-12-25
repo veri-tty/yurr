@@ -28,6 +28,12 @@ in
             identityFile = "~/.ssh/hpi";
             identitiesOnly = true;
           };
+          "github.com" = {
+            hostname = "github.com";
+            user = "git";
+            identityFile = "~/.ssh/github";
+            identitiesOnly = true;
+          };
           "yalt"= {
             hostname = "yalt";
             user = "ml";
