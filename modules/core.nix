@@ -52,6 +52,7 @@
     unzip
     wget
     curl
+    tmux
     unrar
     ripgrep
     jq
