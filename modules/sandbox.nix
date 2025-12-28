@@ -73,13 +73,13 @@ in
 
       environment = {
         HOME = "/home/ml";
-        DISPLAY = ":1";
+        DISPLAY = ":5";
       };
 
       serviceConfig = {
         Type = "simple";
         User = "ml";
-        ExecStart = "${pkgs.tigervnc}/bin/Xvnc :1 -geometry 1920x1080 -depth 24 -rfbauth /home/ml/.vnc/passwd -rfbport 5901 -SecurityTypes VncAuth";
+        ExecStart = "${pkgs.tigervnc}/bin/Xvnc :5 -geometry 1920x1080 -depth 24 -rfbauth /home/ml/.vnc/passwd -rfbport 5905 -SecurityTypes VncAuth";
         Restart = "on-failure";
         RestartSec = "5";
       };
@@ -95,7 +95,7 @@ in
       path = [ pkgs.openbox pkgs.xterm ];
 
       environment = {
-        DISPLAY = ":1";
+        DISPLAY = ":5";
         HOME = "/home/ml";
       };
 
@@ -122,7 +122,7 @@ in
     # ============================================
 
     networking.firewall.allowedTCPPorts = [
-      5901  # VNC :1
+      5905  # VNC :5
     ];
   };
 }
