@@ -7,11 +7,13 @@ in
     environment.systemPackages = [
       pkgs.cifs-utils
       pkgs.docker-compose
+      pkgs.pcmanfm  # file manager for openbox
+      pkgs.xterm
     ];
     services.xrdp = {
       enable = true;
       openFirewall = true;
-      defaultWindowManager = "startlxqt";
+      defaultWindowManager = "openbox-session";
     };
     services.xserver.windowManager.openbox.enable = true;
     services.xserver.desktopManager.lxqt.enable = true;
@@ -24,5 +26,9 @@ in
         automount_opts = "x-systemd.automount,noauto,x-systemd.idle-timeout=60,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s";
       in ["${automount_opts},credentials=/.smbcredentials"];
     };
+
+    # Virtualization (merged from virt.nix)
+    virtualisation.virtualbox.host.enable = true;
+    users.extraGroups.vboxusers.members = [ "ml" ];
   };
 }
