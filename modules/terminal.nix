@@ -219,6 +219,13 @@ in
         bindkey '^R' history-incremental-search-backward
         bindkey '^[[A' history-substring-search-up
         bindkey '^[[B' history-substring-search-down
+
+        # restore emacs-style line navigation
+        bindkey '^A' beginning-of-line
+        bindkey '^E' end-of-line
+        bindkey '^K' kill-line
+        bindkey '^U' backward-kill-line
+        bindkey '^W' backward-kill-word
       '';
     };
 

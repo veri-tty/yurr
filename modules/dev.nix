@@ -4,8 +4,6 @@ let
 in
 {
   config = lib.mkIf cfg.enable {
-    programs.virt-manager.enable = true;
-    virtualisation.libvirtd.enable = true;
 
     environment.systemPackages = with pkgs; [
       opencode ripes hugo bambu-studio gtk3 gtk4

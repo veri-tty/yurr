@@ -11,6 +11,10 @@ with lib;
       enable = mkEnableOption "development tools";
     };
 
+    virt = {
+      enable = mkEnableOption "virtualisation";
+    };
+
     pentest = {
       enable = mkEnableOption "penetration testing tools";
     };
