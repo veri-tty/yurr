@@ -69,32 +69,51 @@ in
       wantedBy = [ "multi-user.target" ];
       after = [ "network.target" ];
 
-      path = [ pkgs.xorg.xinit pkgs.xorg.xauth pkgs.openbox pkgs.xterm pkgs.dbus ];
+      path = [ pkgs.xorg.xauth pkgs.openbox pkgs.xterm pkgs.dbus pkgs.coreutils pkgs.util-linux ];
+
+      environment = {
+        HOME = "/home/ml";
+        DISPLAY = ":1";
+      };
 
       serviceConfig = {
-        Type = "forking";
+        Type = "simple";
         User = "ml";
-        ExecStartPre = "${pkgs.bash}/bin/bash -c 'mkdir -p ~/.vnc && echo -n \"password\" | ${pkgs.tigervnc}/bin/vncpasswd -f > ~/.vnc/passwd && chmod 600 ~/.vnc/passwd'";
-        ExecStart = "${pkgs.tigervnc}/bin/vncserver :1 -geometry 1920x1080 -depth 24 -localhost no";
-        ExecStop = "${pkgs.tigervnc}/bin/vncserver -kill :1";
+        ExecStart = "${pkgs.tigervnc}/bin/Xvnc :1 -geometry 1920x1080 -depth 24 -rfbauth /home/ml/.vnc/passwd -rfbport 5901 -SecurityTypes VncAuth";
         Restart = "on-failure";
         RestartSec = "5";
       };
     };
 
-    # ============================================
-    # VNC XSTARTUP
-    # ============================================
+    # Window manager service
+    systemd.services.openbox-session = {
+      description = "Openbox Window Manager";
+      wantedBy = [ "multi-user.target" ];
+      after = [ "vncserver.service" ];
+      requires = [ "vncserver.service" ];
 
-    # Create xstartup for VNC
+      path = [ pkgs.openbox pkgs.xterm ];
+
+      environment = {
+        DISPLAY = ":1";
+        HOME = "/home/ml";
+      };
+
+      serviceConfig = {
+        Type = "simple";
+        User = "ml";
+        ExecStartPre = "${pkgs.coreutils}/bin/sleep 2";
+        ExecStart = "${pkgs.openbox}/bin/openbox";
+        Restart = "on-failure";
+        RestartSec = "5";
+      };
+    };
+
+    # VNC password setup
     system.activationScripts.vncSetup = ''
       mkdir -p /home/ml/.vnc
-      cat > /home/ml/.vnc/xstartup << 'EOF'
-#!/bin/sh
-xterm &
-exec openbox
-EOF
-      chmod +x /home/ml/.vnc/xstartup
+      echo -n "password" | ${pkgs.tigervnc}/bin/vncpasswd -f > /home/ml/.vnc/passwd
+      chmod 600 /home/ml/.vnc/passwd
       chown -R ml:users /home/ml/.vnc
     '';
 
