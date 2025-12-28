@@ -69,6 +69,8 @@ in
       wantedBy = [ "multi-user.target" ];
       after = [ "network.target" ];
 
+      path = [ pkgs.xorg.xinit pkgs.xorg.xauth pkgs.openbox pkgs.xterm pkgs.dbus ];
+
       serviceConfig = {
         Type = "forking";
         User = "ml";
@@ -81,14 +83,19 @@ in
     };
 
     # ============================================
-    # OPENBOX CONFIG
+    # VNC XSTARTUP
     # ============================================
 
-    # Xstartup for VNC sessions
-    environment.etc."X11/xinit/xinitrc".text = ''
-      #!/bin/sh
-      xterm &
-      exec openbox
+    # Create xstartup for VNC
+    system.activationScripts.vncSetup = ''
+      mkdir -p /home/ml/.vnc
+      cat > /home/ml/.vnc/xstartup << 'EOF'
+#!/bin/sh
+xterm &
+exec openbox
+EOF
+      chmod +x /home/ml/.vnc/xstartup
+      chown -R ml:users /home/ml/.vnc
     '';
 
     # ============================================
