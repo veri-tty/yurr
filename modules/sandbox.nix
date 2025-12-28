@@ -69,23 +69,26 @@ in
     programs.dconf.enable = true;
 
     # ============================================
-    # AUTO-START SWAY + WAYVNC AS USER SERVICE
+    # AUTO-START SWAY + WAYVNC AS SYSTEM SERVICES
     # ============================================
 
-    # Create a systemd user service that starts sway headless
-    systemd.user.services.sway-headless = {
+    # System service that starts sway headless as ml user
+    systemd.services.sway-headless = {
       description = "Headless Sway session";
-      wantedBy = [ "default.target" ];
+      wantedBy = [ "multi-user.target" ];
+      after = [ "systemd-user-sessions.service" ];
 
       environment = {
         WLR_BACKENDS = "headless";
         WLR_LIBINPUT_NO_DEVICES = "1";
-        XDG_RUNTIME_DIR = "/run/user/%U";
+        WLR_RENDERER = "pixman";
+        XDG_RUNTIME_DIR = "/run/user/1000";
         WAYLAND_DISPLAY = "wayland-1";
       };
 
       serviceConfig = {
         Type = "simple";
+        User = "ml";
         ExecStart = "${pkgs.sway}/bin/sway";
         Restart = "on-failure";
         RestartSec = "5";
@@ -93,33 +96,26 @@ in
     };
 
     # wayvnc service (starts after sway)
-    systemd.user.services.wayvnc = {
+    systemd.services.wayvnc = {
       description = "wayvnc VNC server";
-      wantedBy = [ "default.target" ];
+      wantedBy = [ "multi-user.target" ];
       after = [ "sway-headless.service" ];
       requires = [ "sway-headless.service" ];
 
       environment = {
         WAYLAND_DISPLAY = "wayland-1";
-        XDG_RUNTIME_DIR = "/run/user/%U";
+        XDG_RUNTIME_DIR = "/run/user/1000";
       };
 
       serviceConfig = {
         Type = "simple";
-        # Listen on all interfaces, port 5900
-        # Add -Ldebug for troubleshooting
-        ExecStartPre = "${pkgs.coreutils}/bin/sleep 3";  # Wait for sway
+        User = "ml";
+        ExecStartPre = "${pkgs.coreutils}/bin/sleep 3";
         ExecStart = "${pkgs.wayvnc}/bin/wayvnc 0.0.0.0 5900";
         Restart = "on-failure";
         RestartSec = "5";
       };
     };
-
-    # Enable lingering so user services start at boot
-    # (without requiring login)
-    system.activationScripts.enableLingering = ''
-      ${pkgs.systemd}/bin/loginctl enable-linger ml || true
-    '';
 
     # ============================================
     # FIREWALL
