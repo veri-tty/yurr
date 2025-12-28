@@ -23,23 +23,28 @@ in
       defaultWindowManager = "openbox-session";
     };
     ## Sec for VM
-    networking.firewall.extraCommands = ''
-      iptables -I INPUT 1 -i vboxnet0 -m conntrack --ctstate 
-      ESTABLISHED,RELATED -j ACCEPT
-      iptables -I INPUT 2 -i vboxnet0 -m conntrack --ctstate NEW -j 
-      DROP
-      iptables -I DOCKER-USER 1 -i vboxnet0 -m conntrack --ctstate 
-      NEW -j DROP
-    '';
+networking.firewall.extraCommands = ''
+    # Allow responses to host-initiated connections (SSH to VM)
+    iptables -I INPUT 1 -i vboxnet0 -m conntrack --ctstate 
+  ESTABLISHED,RELATED -j ACCEPT
+    # Block VM from initiating any connection to host
+    iptables -I INPUT 2 -i vboxnet0 -j DROP
+    
+    # Same for forwarded traffic (Docker, etc)
+    iptables -I FORWARD 1 -i vboxnet0 -m conntrack --ctstate 
+  ESTABLISHED,RELATED -j ACCEPT
+    iptables -I FORWARD 2 -i vboxnet0 -j DROP
+  '';
 
-    networking.firewall.extraStopCommands = ''
-      iptables -D INPUT -i vboxnet0 -m conntrack --ctstate 
-      ESTABLISHED,RELATED -j ACCEPT || true
-      iptables -D INPUT -i vboxnet0 -m conntrack --ctstate NEW -j 
-      DROP || true
-      iptables -D DOCKER-USER -i vboxnet0 -m conntrack --ctstate NEW
-      -j DROP || true
-    '';
+  networking.firewall.extraStopCommands = ''
+    iptables -D INPUT -i vboxnet0 -m conntrack --ctstate 
+  ESTABLISHED,RELATED -j ACCEPT 2>/dev/null || true
+    iptables -D INPUT -i vboxnet0 -j DROP 2>/dev/null || true
+    iptables -D FORWARD -i vboxnet0 -m conntrack --ctstate 
+  ESTABLISHED,RELATED -j ACCEPT 2>/dev/null || true
+    iptables -D FORWARD -i vboxnet0 -j DROP 2>/dev/null || true
+  '';
+
     services.xserver.windowManager.openbox.enable = true;
     services.xserver.desktopManager.lxqt.enable = true;
    # For mount.cifs, required unless domain name resolution is not needed.

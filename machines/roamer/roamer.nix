@@ -23,6 +23,7 @@ with inputs;
         modules.dev.enable = true;
         modules.pentest.enable = true;
         modules.editor.neovim = true;
+        modules.virt.enable = true;
         # modules.server.enable = false; # Not a server
       }
     ];
