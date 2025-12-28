@@ -197,7 +197,7 @@ in
       };
       autosuggestion = {
         enable = true;
-        highlight = "fg=#707070";
+        highlight = "fg=#888888";
       };
       enableCompletion = true;
       historySubstringSearch.enable = true;

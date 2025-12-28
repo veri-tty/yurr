@@ -19,7 +19,6 @@ with inputs;
         # Enable modules for yalt (server machine)
         modules.server.enable = true;
         modules.editor.neovim = true;
-        modules.sandbox.enable = true;
         # modules.desktop.enable = false;  # No desktop on server
         # modules.dev.enable = false;
         # modules.pentest.enable = false;
