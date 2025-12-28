@@ -24,15 +24,21 @@ in
     };
     ## Sec for VM
     networking.firewall.extraCommands = ''
-      iptables -I INPUT 1 -i vboxnet0 -m state --state ESTABLISHED,RELATED -j ACCEPT
-      iptables -I INPUT 2 -i vboxnet0 -m state --state NEW -j DROP
-      iptables -I DOCKER-USER 1 -i vboxnet0 -m state --state NEW -j 
+      iptables -I INPUT 1 -i vboxnet0 -m conntrack --ctstate 
+      ESTABLISHED,RELATED -j ACCEPT
+      iptables -I INPUT 2 -i vboxnet0 -m conntrack --ctstate NEW -j 
       DROP
+      iptables -I DOCKER-USER 1 -i vboxnet0 -m conntrack --ctstate 
+      NEW -j DROP
     '';
+
     networking.firewall.extraStopCommands = ''
-      iptables -D INPUT -i vboxnet0 -m state --state ESTABLISHED,RELATED -j ACCEPT || true
-      iptables -D INPUT -i vboxnet0 -m state --state NEW -j DROP || true
-      iptables -D DOCKER-USER -i vboxnet0 -m state --state NEW -j DROP || true
+      iptables -D INPUT -i vboxnet0 -m conntrack --ctstate 
+      ESTABLISHED,RELATED -j ACCEPT || true
+      iptables -D INPUT -i vboxnet0 -m conntrack --ctstate NEW -j 
+      DROP || true
+      iptables -D DOCKER-USER -i vboxnet0 -m conntrack --ctstate NEW
+      -j DROP || true
     '';
     services.xserver.windowManager.openbox.enable = true;
     services.xserver.desktopManager.lxqt.enable = true;
