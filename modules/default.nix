@@ -11,6 +11,5 @@
     ./pentest.nix
     ./server.nix
     ./nixvim.nix
-    ./claude-sandbox.nix
   ];
 }
