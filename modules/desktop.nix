@@ -75,6 +75,7 @@ in
 
     environment.systemPackages = with pkgs; [
       android-tools
+      remmina
       # Sway utilities
       grim slurp wl-clipboard wmenu foot swaylock swaybg pamixer acpi brightnessctl
       # Apps
