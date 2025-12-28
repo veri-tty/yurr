@@ -2,7 +2,6 @@
 {
   imports = [
     ./options.nix
-    ./virt.nix
     ./core.nix
     ./terminal.nix
     ./desktop.nix
