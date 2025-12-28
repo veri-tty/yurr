@@ -22,6 +22,18 @@ in
       openFirewall = true;
       defaultWindowManager = "openbox-session";
     };
+    ## Sec for VM
+    networking.firewall.extraCommands = ''
+      iptables -I INPUT 1 -i vboxnet0 -m state --state ESTABLISHED,RELATED -j ACCEPT
+      iptables -I INPUT 2 -i vboxnet0 -m state --state NEW -j DROP
+      iptables -I DOCKER-USER 1 -i vboxnet0 -m state --state NEW -j 
+      DROP
+    '';
+    networking.firewall.extraStopCommands = ''
+      iptables -D INPUT -i vboxnet0 -m state --state ESTABLISHED,RELATED -j ACCEPT || true
+      iptables -D INPUT -i vboxnet0 -m state --state NEW -j DROP || true
+      iptables -D DOCKER-USER -i vboxnet0 -m state --state NEW -j DROP || true
+    '';
     services.xserver.windowManager.openbox.enable = true;
     services.xserver.desktopManager.lxqt.enable = true;
    # For mount.cifs, required unless domain name resolution is not needed.
