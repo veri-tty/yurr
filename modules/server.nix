@@ -12,6 +12,7 @@ in
       enable = true;
       openFirewall = true;
       defaultWindowManager = "startlxqt";
+    };
     services.xserver.desktopManager.lxqt.enable = true;
    # For mount.cifs, required unless domain name resolution is not needed.
     fileSystems."/mnt/box" = {
