@@ -92,7 +92,7 @@ in
       serviceConfig = {
         Type = "simple";
         User = "ml";
-        ExecStart = "${pkgs.dbus}/bin/dbus-run-session ${pkgs.sway}/bin/sway";
+        ExecStart = "${pkgs.dbus}/bin/dbus-run-session ${pkgs.sway}/bin/sway -c /etc/sway/config";
         Restart = "on-failure";
         RestartSec = "5";
       };
