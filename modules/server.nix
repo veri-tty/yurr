@@ -7,9 +7,9 @@ in
     environment.systemPackages = [
       pkgs.cifs-utils
       pkgs.docker-compose
-      pkgs.lxqt
     ];
     services.xrdp.enable = true;
+    services.xserver.desktopManager.lxqt.enable = true;
    # For mount.cifs, required unless domain name resolution is not needed.
     fileSystems."/mnt/box" = {
       device = "//u455112.your-storagebox.de/backup";
