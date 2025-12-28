@@ -9,6 +9,7 @@ in
       pkgs.docker-compose
       pkgs.lxqt
     ];
+    services.xrdp.enable = true;
    # For mount.cifs, required unless domain name resolution is not needed.
     fileSystems."/mnt/box" = {
       device = "//u455112.your-storagebox.de/backup";
@@ -17,8 +18,6 @@ in
         # this line prevents hanging on network split
         automount_opts = "x-systemd.automount,noauto,x-systemd.idle-timeout=60,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s";
       in ["${automount_opts},credentials=/.smbcredentials"];
-      services.xrdp.enable = true;
-
     };
   };
 }
