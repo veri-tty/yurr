@@ -76,7 +76,10 @@ in
     systemd.services.sway-headless = {
       description = "Headless Sway session";
       wantedBy = [ "multi-user.target" ];
-      after = [ "systemd-user-sessions.service" ];
+      after = [ "systemd-user-sessions.service" "dbus.service" ];
+      wants = [ "dbus.service" ];
+
+      path = [ pkgs.dbus ];
 
       environment = {
         WLR_BACKENDS = "headless";
@@ -89,7 +92,7 @@ in
       serviceConfig = {
         Type = "simple";
         User = "ml";
-        ExecStart = "${pkgs.sway}/bin/sway";
+        ExecStart = "${pkgs.dbus}/bin/dbus-run-session ${pkgs.sway}/bin/sway";
         Restart = "on-failure";
         RestartSec = "5";
       };
