@@ -270,32 +270,32 @@ in
 
           colors = {
             focused = {
-              border = "#88c0d0";
-              background = "#2e3440";
-              text = "#eceff4";
+              border = "#36c2c2";
+              background = "#1a1a1a";
+              text = "#ffffff";
               indicator = "#b48ead";
-              childBorder = "#88c0d0";
+              childBorder = "#36c2c2";
             };
             focusedInactive = {
-              border = "#4c566a";
-              background = "#2e3440";
-              text = "#d8dee9";
-              indicator = "#4c566a";
-              childBorder = "#4c566a";
+              border = "#444444";
+              background = "#1a1a1a";
+              text = "#888888";
+              indicator = "#444444";
+              childBorder = "#444444";
             };
             unfocused = {
-              border = "#3b4252";
-              background = "#2e3440";
-              text = "#4c566a";
-              indicator = "#3b4252";
-              childBorder = "#3b4252";
+              border = "#282828";
+              background = "#1a1a1a";
+              text = "#707070";
+              indicator = "#282828";
+              childBorder = "#282828";
             };
             urgent = {
-              border = "#bf616a";
-              background = "#bf616a";
-              text = "#eceff4";
-              indicator = "#bf616a";
-              childBorder = "#bf616a";
+              border = "#ff5555";
+              background = "#ff5555";
+              text = "#ffffff";
+              indicator = "#ff5555";
+              childBorder = "#ff5555";
             };
           };
 
@@ -357,13 +357,13 @@ in
             statusCommand = "${barScript}";
             fonts = { names = [ "JetBrainsMono Nerd Font" ]; size = 10.0; };
             colors = {
-              background = "#2e3440";
-              statusline = "#d8dee9";
-              separator = "#4c566a";
-              focusedWorkspace = { border = "#88c0d0"; background = "#88c0d0"; text = "#2e3440"; };
-              activeWorkspace = { border = "#4c566a"; background = "#4c566a"; text = "#d8dee9"; };
-              inactiveWorkspace = { border = "#2e3440"; background = "#2e3440"; text = "#4c566a"; };
-              urgentWorkspace = { border = "#bf616a"; background = "#bf616a"; text = "#eceff4"; };
+              background = "#0a0a0a";
+              statusline = "#d0d0d0";
+              separator = "#444444";
+              focusedWorkspace = { border = "#36c2c2"; background = "#36c2c2"; text = "#0a0a0a"; };
+              activeWorkspace = { border = "#444444"; background = "#444444"; text = "#d0d0d0"; };
+              inactiveWorkspace = { border = "#0a0a0a"; background = "#0a0a0a"; text = "#707070"; };
+              urgentWorkspace = { border = "#ff5555"; background = "#ff5555"; text = "#ffffff"; };
             };
           }];
         };

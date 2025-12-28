@@ -93,6 +93,7 @@ in
         Type = "simple";
         User = "ml";
         ExecStart = "${pkgs.dbus}/bin/dbus-run-session ${pkgs.sway}/bin/sway -c /etc/sway/config";
+        ExecStartPost = "${pkgs.bash}/bin/bash -c 'sleep 2 && SWAYSOCK=$(ls /run/user/1000/sway-ipc.*.sock | head -1) ${pkgs.sway}/bin/swaymsg output HEADLESS-1 resolution 1920x1080'";
         Restart = "on-failure";
         RestartSec = "5";
       };
