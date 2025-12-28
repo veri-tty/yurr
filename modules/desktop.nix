@@ -3,11 +3,56 @@ let
   cfg = config.modules.desktop;
   barScript = pkgs.writeShellScript "sway-bar.sh" ''
     while true; do
-      volume=$(${pkgs.pamixer}/bin/pamixer --get-volume)
-      date=$(${pkgs.coreutils}/bin/date +'%H:%M')
-      battery=$(${pkgs.acpi}/bin/acpi -b | ${pkgs.gnugrep}/bin/grep -oP '\d+(?=%)')
-      echo "vol:$volume | bat:$battery | $date "
-      sleep 1
+      # Volume with icon
+      vol=$(${pkgs.pamixer}/bin/pamixer --get-volume)
+      muted=$(${pkgs.pamixer}/bin/pamixer --get-mute)
+      if [ "$muted" = "true" ]; then
+        vol_icon="󰝟"
+      elif [ "$vol" -gt 50 ]; then
+        vol_icon="󰕾"
+      elif [ "$vol" -gt 0 ]; then
+        vol_icon="󰖀"
+      else
+        vol_icon="󰕿"
+      fi
+
+      # Battery with icon
+      bat=$(${pkgs.acpi}/bin/acpi -b 2>/dev/null | ${pkgs.gnugrep}/bin/grep -oP '\d+(?=%)' | head -1)
+      charging=$(${pkgs.acpi}/bin/acpi -b 2>/dev/null | ${pkgs.gnugrep}/bin/grep -c "Charging")
+      if [ -z "$bat" ]; then
+        bat_str=""
+      elif [ "$charging" -gt 0 ]; then
+        bat_str="󰂄 $bat%"
+      elif [ "$bat" -gt 80 ]; then
+        bat_str="󰁹 $bat%"
+      elif [ "$bat" -gt 60 ]; then
+        bat_str="󰂀 $bat%"
+      elif [ "$bat" -gt 40 ]; then
+        bat_str="󰁾 $bat%"
+      elif [ "$bat" -gt 20 ]; then
+        bat_str="󰁼 $bat%"
+      else
+        bat_str="󰁺 $bat%"
+      fi
+
+      # Network
+      wifi=$(${pkgs.networkmanager}/bin/nmcli -t -f active,ssid dev wifi | ${pkgs.gnugrep}/bin/grep '^yes' | cut -d: -f2)
+      if [ -n "$wifi" ]; then
+        net="󰖩 $wifi"
+      else
+        net="󰖪"
+      fi
+
+      # Date/time
+      datetime=$(${pkgs.coreutils}/bin/date +'%a %d %b  %H:%M')
+
+      # Build output
+      if [ -n "$bat_str" ]; then
+        echo "$net   $vol_icon $vol%   $bat_str   $datetime"
+      else
+        echo "$net   $vol_icon $vol%   $datetime"
+      fi
+      sleep 2
     done
   '';
 in
@@ -218,8 +263,41 @@ in
           };
 
           window = { border = 2; titlebar = false; };
-          fonts = { names = [ "IBM Plex Mono" ]; size = 12.0; };
+          gaps.inner = 8;
+          gaps.outer = 4;
+          fonts = { names = [ "IBM Plex Mono" ]; size = 11.0; };
           floating.modifier = "${modifier}";
+
+          colors = {
+            focused = {
+              border = "#88c0d0";
+              background = "#2e3440";
+              text = "#eceff4";
+              indicator = "#b48ead";
+              childBorder = "#88c0d0";
+            };
+            focusedInactive = {
+              border = "#4c566a";
+              background = "#2e3440";
+              text = "#d8dee9";
+              indicator = "#4c566a";
+              childBorder = "#4c566a";
+            };
+            unfocused = {
+              border = "#3b4252";
+              background = "#2e3440";
+              text = "#4c566a";
+              indicator = "#3b4252";
+              childBorder = "#3b4252";
+            };
+            urgent = {
+              border = "#bf616a";
+              background = "#bf616a";
+              text = "#eceff4";
+              indicator = "#bf616a";
+              childBorder = "#bf616a";
+            };
+          };
 
           keybindings = let lockscreen = "${config.home.homeDirectory}/media/wall/heyapple.jpg"; in lib.mkOptionDefault {
             "${modifier}+q" = "kill";
@@ -277,11 +355,15 @@ in
           bars = [{
             position = "top";
             statusCommand = "${barScript}";
-            fonts = { names = [ "IBM Plex Mono" ]; size = 11.0; };
+            fonts = { names = [ "JetBrainsMono Nerd Font" ]; size = 10.0; };
             colors = {
-              statusline = "#ffffff";
-              background = "#323232";
-              inactiveWorkspace = { border = "#32323200"; background = "#32323200"; text = "#5c5c5c"; };
+              background = "#2e3440";
+              statusline = "#d8dee9";
+              separator = "#4c566a";
+              focusedWorkspace = { border = "#88c0d0"; background = "#88c0d0"; text = "#2e3440"; };
+              activeWorkspace = { border = "#4c566a"; background = "#4c566a"; text = "#d8dee9"; };
+              inactiveWorkspace = { border = "#2e3440"; background = "#2e3440"; text = "#4c566a"; };
+              urgentWorkspace = { border = "#bf616a"; background = "#bf616a"; text = "#eceff4"; };
             };
           }];
         };

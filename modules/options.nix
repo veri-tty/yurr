@@ -36,5 +36,9 @@ with lib;
     editor = {
       neovim = mkEnableOption "nixvim configuration";
     };
+
+    sandbox = {
+      enable = mkEnableOption "headless Sway + wayvnc with QEMU/libvirt stack";
+    };
   };
 }

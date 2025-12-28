@@ -48,10 +48,12 @@
 
   environment.systemPackages = with pkgs; [
     claude-code
+    xterm
     git
     unzip
     wget
     curl
+    xauth
     tmux
     unrar
     ripgrep
@@ -82,6 +84,9 @@
 
   fonts.packages = with pkgs; [
     ibm-plex
+    nerd-fonts.jetbrains-mono
+    nerd-fonts.fira-code
+    nerd-fonts.hack
   ];
 
   users.users.ml = {

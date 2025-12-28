@@ -2,6 +2,7 @@
 {
   imports = [
     ./options.nix
+    ./sandbox.nix
     ./core.nix
     ./terminal.nix
     ./desktop.nix
