@@ -20,6 +20,7 @@
     };
     disko.url = "github:nix-community/disko";
     disko.inputs.nixpkgs.follows = "nixpkgs";
+    minegrub-theme.url = "github:Lxtharia/minegrub-theme";
   };
 
   outputs = {

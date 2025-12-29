@@ -14,6 +14,7 @@ with inputs;
     modules = [
       nixos-hardware.nixosModules.framework-13-7040-amd
       home-manager.nixosModules.home-manager
+      minegrub-theme.nixosModules.default
       ../../modules/default.nix # Contains options and imports all relevant other modules
       ./boot.nix
       {
