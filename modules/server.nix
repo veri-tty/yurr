@@ -12,6 +12,19 @@ in
       pkgs.xdg-desktop-portal
       pkgs.xdg-desktop-portal-gtk
     ];
+    services.nginx = {
+    enable = true;
+    virtualHosts."lunau.xyz" = {
+      root = "/var/www/lunau.xyz";
+      forceSSL = true;
+      enableACME = true;
+    };
+    };
+    security.acme = {
+      acceptTerms = true;
+      defaults.email = "0sum-verity@proton.me";
+    };
+    networking.firewall.allowedTCPPorts = [ 80 443 ];
     xdg.portal = {
       enable = true;
       extraPortals = [ pkgs.xdg-desktop-portal-gtk ];

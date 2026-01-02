@@ -63,7 +63,8 @@ in
       enable = true;
       settings.animation = "doom";
     };
-
+    virtualisation.virtualbox.host.enable = true;
+    users.extraGroups.vboxusers.members = [ "ml" ];
     programs.light.enable = true;
     services.gnome.gnome-keyring.enable = true;
     programs.sway = {
@@ -89,6 +90,10 @@ in
       eddie yggstack wireguard-tools bluez networkmanagerapplet
       # Notes
       affine
+
+      # Basic privacy lol 
+      kdePackages.kleopatra
+      gnupg
 
     ];
 
