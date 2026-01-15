@@ -63,7 +63,14 @@ in
       enable = true;
       settings.animation = "doom";
     };
-    virtualisation.virtualbox.host.enable = true;
+    virtualisation.virtualbox.host = {
+       enable = true;
+       enableExtensionPack = true;
+    };
+    virtualisation.libvirtd.enable = true;
+    programs.virt-manager.enable = true;
+    programs.adb.enable = true;
+    users.users.ml.extraGroups = [ "adbusers" ];
     users.extraGroups.vboxusers.members = [ "ml" ];
     programs.light.enable = true;
     services.gnome.gnome-keyring.enable = true;
@@ -76,6 +83,8 @@ in
 
     environment.systemPackages = with pkgs; [
       android-tools
+      godot-mono
+      texliveMedium
       remmina
       # Sway utilities
       grim slurp wl-clipboard wmenu foot swaylock swaybg pamixer acpi brightnessctl
@@ -264,7 +273,7 @@ in
 
           input = {
             "*" = { xkb_layout = "de"; xkb_options = "caps:escape"; };
-            "type:touchpad" = { dwt = "true"; tap = "enabled"; natural_scroll = "enabled"; };
+            "type:touchpad" = { dwt = "false"; tap = "enabled"; natural_scroll = "enabled"; };
             "type:keyboard" = { xkb_layout = "de"; xkb_options = "caps:escape"; };
           };
 
@@ -382,6 +391,7 @@ in
       programs.steam.enable = true;
       environment.systemPackages = with pkgs; [
         wineWowPackages.waylandFull
+        lutris
       ];
     })
   ];
